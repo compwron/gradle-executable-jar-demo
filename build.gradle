@@ -8,13 +8,23 @@ repositories {
 
 dependencies {
     compile "org.codehaus.groovy:groovy-all:2.4.6"
+    testCompile "org.codehaus.groovy:groovy-all:2.4.6"
 }
 
-task awesomejar(type: Jar,dependsOn:[':compileGroovy']) {
+task awesomejar(type: Jar, dependsOn: [':compileGroovy']) {
     from files(sourceSets.main.output.classesDir)
     from configurations.runtime.asFileTree.files.collect { zipTree(it) }
 
     manifest {
         attributes 'Main-Class': 'foo.Main'
+    }
+}
+
+task otherjar(type: Jar, dependsOn: [':compileTestGroovy']) {
+    from files(sourceSets.test.output.classesDir)
+    from configurations.testRuntime.asFileTree.files.collect { zipTree(it) }
+
+    manifest {
+        attributes 'Main-Class': 'foo.MainInTest'
     }
 }
