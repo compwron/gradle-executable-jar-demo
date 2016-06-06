@@ -1,13 +1,21 @@
-buildscript {
-    repositories {
-        jcenter()
-    }
-}
-apply plugin: "java"
+apply plugin: 'groovy'
+apply plugin: 'application'
+version = '1.0'
+mainClassName='Test'
 
-jar {
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile "org.codehaus.groovy:groovy-all:2.4.6"
+}
+
+task awesomejar(type: Jar,dependsOn:[':compileGroovy']) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+
     manifest {
-        attributes 'Main-Class':  "foo.Main"
+        attributes 'Main-Class': mainClassName
     }
 }
-apply plugin: "java"
