@@ -1,0 +1,13 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+}
+apply plugin: "java"
+
+jar {
+    manifest {
+        attributes 'Main-Class':  "foo.Main"
+    }
+}
+apply plugin: "java"
