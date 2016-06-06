@@ -1,7 +1,6 @@
 apply plugin: 'groovy'
-apply plugin: 'application'
+apply plugin: 'java'
 version = '1.0'
-mainClassName='foo.Main'
 
 repositories {
     mavenCentral()
@@ -16,6 +15,6 @@ task awesomejar(type: Jar,dependsOn:[':compileGroovy']) {
     from configurations.runtime.asFileTree.files.collect { zipTree(it) }
 
     manifest {
-        attributes 'Main-Class': mainClassName
+        attributes 'Main-Class': 'foo.Main'
     }
 }
